@@ -24,7 +24,7 @@ char * my_strchr(const char * str, int ch){
 	while(1)
 	{
 		if(str[i]==ch)
-			return &str[i];
+			return (char *)&str[i];
 		if(str[i]=='\0')
 			return NULL;
 		i++;
@@ -40,7 +40,7 @@ char * my_strrchr(const char * str, int ch){
 	while(1)
 	{
 		if(str[i]==ch)
-			return &str[i];
+			return (char *)&str[i];
 		if(i==0)
 			return NULL;
 		i--;
@@ -51,7 +51,7 @@ char * my_strstr(const char * haystack, const char * needle){
 	int i = 0;
 	int j = 0;
 	if(needle[0]=='\0')
-		return haystack;
+		return (char *)haystack;
 	for(;haystack[i]!='\0';i++)
 	{
 		if(haystack[i]==needle[0])
@@ -60,15 +60,21 @@ char * my_strstr(const char * haystack, const char * needle){
 				if(needle[j]!=haystack[i+j])
 					break;
 			if(needle[j]=='\0')
-				return &haystack[i];
+				return (char *)&haystack[i];
 		}
 	}
 	return NULL;
 }
 
 char * my_strcpy(char * dest, const char * src){
-	while(*(src-1)!='\0')
-		*dest++=*src++;
+	while(1)
+	{
+		*dest=*src;
+		if(*src=='\0')
+			break;
+		dest++;
+		src++;
+	}
 	return dest;
 }
 
@@ -79,9 +85,9 @@ char * my_strcat(char * dest, const char * src){
 	lengths = my_strlen(src);
 	lengthd = my_strlen(dest);
 
-	for (i=lengthd; i <= lengths; ++i)
+	for (i=0; i <= lengths; ++i)
 	{
-		dest[i] = src[i-lengthd];/* code */
+		dest[i+lengthd] = src[i];/* code */
 	}
 	return dest;
 }
