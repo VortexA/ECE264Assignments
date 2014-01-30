@@ -12,7 +12,6 @@ size_t my_strlen(const char * str){
 int my_countchar(const char * str, char ch){
 	int i = 0;
 	int count = 0;
-	char temp = 1;
 	for(;str[i]!='\0';i++)
 		if(str[i]==ch)
 			count++;
@@ -67,6 +66,7 @@ char * my_strstr(const char * haystack, const char * needle){
 }
 
 char * my_strcpy(char * dest, const char * src){
+	char *temp=dest;
 	while(1)
 	{
 		*dest=*src;
@@ -75,7 +75,7 @@ char * my_strcpy(char * dest, const char * src){
 		dest++;
 		src++;
 	}
-	return dest;
+	return temp;
 }
 
 char * my_strcat(char * dest, const char * src){
